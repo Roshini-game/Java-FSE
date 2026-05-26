@@ -1,0 +1,15 @@
+public class Main
+{
+	public static void main(String[] args) {
+	    int Int = 1;
+	    float Flo = 2.2f;
+	    double dou = 3.34;
+	    char cha = 'g';
+	    boolean boo = true;
+	    System.out.println("Integer: "+Int);
+	    System.out.println("Float: "+Flo);
+	    System.out.println("Double: "+dou);
+	    System.out.println("Character: "+cha);
+		System.out.println("Boolean: "+boo);
+	}
+}
