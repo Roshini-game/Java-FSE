@@ -1,0 +1,9 @@
+public class Main
+{
+	public static void main(String[] args) {
+	    double a=2.56;
+	    int b=34;
+		System.out.println("Convert double into int value: "+(int)a);
+		System.out.println("Convert int into double value: "+(double)b);
+	}
+}
