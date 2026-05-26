@@ -1,0 +1,24 @@
+public class Main
+{
+	public static void main(String[] args) {
+	    int A=5*2-8;
+	    int B=7/4+4*7;
+		System.out.println("value of A: "+A);
+		System.out.println("value of B: "+B);
+	}
+}
+
+Explaination of order of operation
+
+operation steps of A.
+
+step-1: 5*2=10
+step-2: 10-8=2
+valueof A: 2
+
+operation steps of B.
+
+step-1: 7/4=1
+step-2: 4*7=28
+step-3: 1+28=29
+valueof B: 29
