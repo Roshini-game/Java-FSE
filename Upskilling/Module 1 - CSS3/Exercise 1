@@ -19,3 +19,15 @@
     </p>
 </body>
 </html>
+
+
+.header {
+    color: darkblue;
+    text-align: center;
+    font-size: 30px;
+}
+.content {
+    font-size: 18px;
+    color: black;
+    padding: 10px;
+}
