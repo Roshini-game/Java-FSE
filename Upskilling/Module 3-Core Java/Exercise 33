@@ -1,0 +1,96 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+public class JDBCTransaction {
+    private static final String DB_URL = "jdbc:sqlite:accounts.db";
+    public static void main(String[] args) {
+        setupDatabase();
+        System.out.println("Balances before transfer:");
+        printBalances();
+        System.out.println("\nExecuting Transfer: $200.00 from Account 1 to Account 2...");
+        transferMoney(1, 2, 200.0);
+        System.out.println("\nBalances after transfer:");
+        printBalances();
+        System.out.println("\nExecuting Invalid Transfer (Insufficient Funds): $2000.00 from Account 1 to Account 2...");
+        transferMoney(1, 2, 2000.0);
+        System.out.println("\nBalances after invalid transfer (should remain unchanged):");
+        printBalances();
+    }
+    private static void setupDatabase() {
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute("CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, name TEXT, balance DOUBLE)");
+            stmt.execute("DELETE FROM accounts");
+            stmt.execute("INSERT INTO accounts (id, name, balance) VALUES (1, 'Alice', 1000.0)");
+            stmt.execute("INSERT INTO accounts (id, name, balance) VALUES (2, 'Bob', 500.0)");
+        } catch (SQLException e) {
+            System.out.println("Error setting up database: " + e.getMessage());
+        }
+    }
+    private static void transferMoney(int fromAccountId, int toAccountId, double amount) {
+        Connection conn = null;
+        PreparedStatement debitStmt = null;
+        PreparedStatement creditStmt = null;
+        PreparedStatement checkBalanceStmt = null;   
+        try {
+            conn = DriverManager.getConnection(DB_URL);
+            conn.setAutoCommit(false);
+            checkBalanceStmt = conn.prepareStatement("SELECT balance FROM accounts WHERE id = ?");
+            checkBalanceStmt.setInt(1, fromAccountId);
+            ResultSet rs = checkBalanceStmt.executeQuery();
+            if (!rs.next()) {
+                throw new SQLException("Sender account not found.");
+            }
+            double currentBalance = rs.getDouble("balance");
+            if (currentBalance < amount) {
+                throw new SQLException("Insufficient funds (Available: " + currentBalance + ", Requested: " + amount + ")");
+            }
+            debitStmt = conn.prepareStatement("UPDATE accounts SET balance = balance - ? WHERE id = ?");
+            debitStmt.setDouble(1, amount);
+            debitStmt.setInt(2, fromAccountId);
+            debitStmt.executeUpdate();
+            creditStmt = conn.prepareStatement("UPDATE accounts SET balance = balance + ? WHERE id = ?");
+            creditStmt.setDouble(1, amount);
+            creditStmt.setInt(2, toAccountId);
+            int receiverUpdated = creditStmt.executeUpdate();
+            if (receiverUpdated == 0) {
+                throw new SQLException("Receiver account not found.");
+            }
+            conn.commit();
+            System.out.println("Transaction committed successfully.");
+        } catch (SQLException e) {
+            System.out.println("Transaction failed: " + e.getMessage());
+            if (conn != null) {
+                try {
+                    System.out.println("Rolling back transaction...");
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    System.out.println("Error rolling back: " + ex.getMessage());
+                }
+            }
+        } finally {
+            try {
+                if (checkBalanceStmt != null) checkBalanceStmt.close();
+                if (debitStmt != null) debitStmt.close();
+                if (creditStmt != null) creditStmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+    private static void printBalances() {
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT id, name, balance FROM accounts")) {
+            while (rs.next()) {
+                System.out.println("Account " + rs.getInt("id") + " (" + rs.getString("name") + "): $" + rs.getDouble("balance"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error showing balances: " + e.getMessage());
+        }
+    }
+}
