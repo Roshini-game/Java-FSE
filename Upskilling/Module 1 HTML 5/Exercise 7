@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Promo Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        video {
+            border: 3px solid #007BFF;
+            border-radius: 8px;
+        }
+        #status {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        textarea {
+            width: 90%;
+            height: 100px;
+            margin-top: 15px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Community Event Promo Video</h2>
+    <video width="600" controls oncanplay="videoReady()">
+        <source src="event-promo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <p id="status"></p>
+    <h3>Event Notes</h3>
+    <textarea id="notes" placeholder="Enter your notes here..."></textarea>
+</div>
+<script>
+    function videoReady() {
+        document.getElementById("status").innerHTML = "Video ready to play";
+    }
+    window.onbeforeunload = function () {
+        let notes = document.getElementById("notes").value;
+        if (notes.trim() !== "") {
+            return "You have unsaved information. Are you sure you want to leave?";
+        }
+    };
+</script>
+</body>
+</html>
