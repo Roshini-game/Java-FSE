@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debugging Example</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">Debug Me</div>
+    <button onclick="calculate()">Click Me</button>
+    <script>
+        function calculate() {
+            let x = 10;
+            let y = 20;
+            let total = x + y;
+            console.log("Value of x:", x);
+            console.log("Value of y:", y);
+            console.log("Total:", total);
+            alert("Total = " + total);
+        }
+    </script>
+</body>
+</html>
