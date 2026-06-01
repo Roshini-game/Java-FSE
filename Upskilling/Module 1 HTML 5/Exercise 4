@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Events Gallery</title>
+    <style>
+        .eventImage {
+            border: 3px solid #007BFF;
+            border-radius: 8px;
+            width: 200px;
+            height: 150px;
+        }
+        table {
+            margin: auto;
+            border-spacing: 15px;
+        }
+        td {
+            text-align: center;
+        }
+        figcaption {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">Community Events Gallery</h1>
+    <table>
+        <tr>
+            <td>
+                <figure>
+                    <img src="event1.jpg" alt="Tree Plantation Drive"
+                         title="Tree Plantation Drive"
+                         class="eventImage">
+                    <figcaption>Tree Plantation Drive</figcaption>
+                </figure>
+            </td>
+            <td>
+                <figure>
+                    <img src="event2.jpg" alt="Blood Donation Camp"
+                         title="Blood Donation Camp"
+                         class="eventImage">
+                    <figcaption>Blood Donation Camp</figcaption>
+                </figure>
+            </td>
+            <td>
+                <figure>
+                    <img src="event3.jpg" alt="Sports Day"
+                         title="Sports Day"
+                         class="eventImage">
+                    <figcaption>Annual Sports Day</figcaption>
+                </figure>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <figure>
+                    <img src="event4.jpg" alt="Cultural Festival"
+                         title="Cultural Festival"
+                         class="eventImage">
+                    <figcaption>Cultural Festival</figcaption>
+                </figure>
+            </td>
+            <td>
+                <figure>
+                    <img src="event5.jpg" alt="Coding Workshop"
+                         title="Coding Workshop"
+                         class="eventImage">
+                    <figcaption>Coding Workshop</figcaption>
+                </figure>
+            </td>
+            <td>
+                <figure>
+                    <img src="event6.jpg" alt="Community Clean-Up"
+                         title="Community Clean-Up"
+                         class="eventImage">
+                    <figcaption>Community Clean-Up</figcaption>
+                </figure>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
