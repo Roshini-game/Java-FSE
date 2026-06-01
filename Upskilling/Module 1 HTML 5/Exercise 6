@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+        #eventImage {
+            width: 200px;
+            height: 150px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #charCount {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Event Feedback Form</h2>
+    <label>Phone Number</label>
+    <input type="text" id="phone" placeholder="Enter 10-digit phone number" onblur="validatePhone()">
+    <p id="phoneMessage"></p>
+    <label>Select Event</label>
+    <select id="eventType" onchange="showFee()">
+        <option value="">Choose Event</option>
+        <option value="100">Coding Workshop</option>
+        <option value="200">Sports Day</option>
+        <option value="150">Cultural Festival</option>
+    </select>
+    <p id="feeDisplay"></p>
+    <label>Feedback</label>
+    <textarea id="feedback" rows="5" placeholder="Enter feedback..." onkeyup="countCharacters()"></textarea>
+    <p>Character Count: <span id="charCount">0</span></p>
+    <img src="event.jpg" alt="Event Image" id="eventImage"ondblclick="enlargeImage()">
+    <p>Double-click the image to enlarge it.</p>
+    <button onclick="submitForm()">Submit Feedback</button>
+    <p id="confirmation"></p>
+</div>
+<script>
+    function validatePhone() {
+        let phone = document.getElementById("phone").value;
+        let message = document.getElementById("phoneMessage");
+        if (/^[0-9]{10}$/.test(phone)) {
+            message.innerHTML = "Valid Phone Number";
+            message.style.color = "green";
+        } else {
+            message.innerHTML = "Enter a valid 10-digit phone number";
+            message.style.color = "red";
+        }
+    }
+
+    function showFee() {
+        let fee = document.getElementById("eventType").value;
+        if (fee !== "") {
+            document.getElementById("feeDisplay").innerHTML =
+                "Event Fee: ₹" + fee;
+        }
+    }
+    function submitForm() {
+        document.getElementById("confirmation").innerHTML =
+            "Feedback Submitted Successfully!";
+    }
+    function enlargeImage() {
+        let image = document.getElementById("eventImage");
+        if (image.style.width === "300px") {
+            image.style.width = "200px";
+            image.style.height = "150px";
+        } else {
+            image.style.width = "300px";
+            image.style.height = "225px";
+        }
+    }
+    function countCharacters() {
+        let text = document.getElementById("feedback").value;
+        document.getElementById("charCount").innerHTML = text.length;
+    }
+</script>
+</body>
+</html>
