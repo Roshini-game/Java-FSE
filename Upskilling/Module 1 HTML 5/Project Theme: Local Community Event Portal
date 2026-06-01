@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <style>
+        body{
+            background:#f4f4f4;
+        }
+        #welcomeBanner{
+            background:blue;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="help.html" target="_blank">Help</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="home">
+            <div id="welcomeBanner">
+                <h1 style="color:red;">
+                    Local Community Portal
+                </h1>
+                <p class="highlight">
+                    Welcome Resident!
+                </p>
+                <span style="color:red;font-weight:bold;">
+                    Special Offer: Free Registration Today
+                </span>
+            </div>
+        </section>
+        <section id="events">
+            <h2 id="mainHeader">Upcoming Events</h2>
+            <div class="eventCard">
+                <h3>Tree Plantation</h3>
+                <p>Join us for a green future.</p>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <img src="images/event1.jpg" class="eventImage" alt="Event 1" title="Tree Plantation">
+                        <figcaption>Tree Plantation</figcaption>
+                    </td>
+                    <td>
+                        <img src="images/event2.jpg" class="eventImage" alt="Event 2" title="Sports Day">
+                        <figcaption>Sports Day</figcaption>
+                    </td>
+                    <td>
+                        <img src="images/event3.jpg" class="eventImage" alt="Event 3" title="Workshop">
+                        <figcaption>Coding Workshop</figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/event4.jpg" class="eventImage" alt="Event 4" title="Festival">
+                        <figcaption>Cultural Festival</figcaption>
+                    </td>
+                    <td>
+                        <img src="images/event5.jpg" class="eventImage" alt="Event 5" title="Camp">
+                        <figcaption>Donation Camp</figcaption>
+                    </td>
+                    <td>
+                        <img src="images/event6.jpg" class="eventImage" alt="Event 6" title="Cleanup">
+                        <figcaption>Community Cleanup</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <form id="registrationForm">
+                <input type="text" id="name" placeholder="Enter Name" required autofocus>
+                <input type="email" id="email" placeholder="Enter Email" required>
+                <input type="date" required>
+                <select id="eventType" onchange="showFee()">
+                    <option value="">Select Event</option>
+                    <option value="100">Workshop</option>
+                    <option value="150">Sports Day</option>
+                    <option value="200">Festival</option>
+                </select>
+                <p id="feeDisplay"></p>
+                <textarea id="feedback" placeholder="Message" onkeyup="countCharacters()">
+                </textarea>
+                <p>
+                    Characters:
+                    <span id="charCount">0</span>
+                </p>
+                <input type="text" id="phone" placeholder="Phone Number" onblur="validatePhone()">
+                <p id="phoneMessage"></p>
+                <button type="submit"
+                        id="registerBtn">
+                    Register
+                </button>
+                <output id="confirmation"></output>
+            </form>
+        </section>
+        <section>
+            <img src="images/event1.jpg" id="feedbackImage" ondblclick="enlargeImage()">
+            <p>Double-click image to enlarge.</p>
+        </section>
+        <section>
+            <video width="500" controls oncanplay="videoReady()">
+                <source src="videos/event-promo.mp4" type="video/mp4">
+            </video>
+            <p id="videoMessage"></p>
+        </section>
+        <section>
+            <button onclick="savePreference()">
+                Save Preference
+            </button>
+            <button onclick="clearPreferences()">
+                Clear Preferences
+            </button>
+        </section>
+        <!-- Geolocation -->
+        <section>
+            <button onclick="findLocation()">
+                Find Nearby Events
+            </button>
+            <p id="location"></p>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: support@portal.com</p>
+        </section>
+    </main>
+    <footer>
+        Community Portal © 2026
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>
